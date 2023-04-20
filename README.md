@@ -17,7 +17,7 @@ Veri seti pre-processing yapılarak kullanıma hazır hale getirilmiştir.
 Ham verileri içeren dosya rows.csv dosyasıdır.
 Bu dosyayı kullanarak veri seti oluşturulmuştur.
 Pre-processing işlemlerinden geçen dosya rows2.csv dosyasıdır.
-Ancak dosya boyutu sınırı sebebiyle .zip olarak dosyaya ekledim.Zipten çıkalırıp proje içine eklenirse çalışacaktır.
+Ancak dosya boyutu sınırı sebebiyle .zip olarak dosyaya ekledim. Kod zipten çıkarıp üzerinde işlem yapıyor.
 Benzerlik oranlarının bulunması için her sütundaki tekrarsız verileri içeren dosyalar sütun isimleriyle
 aynı isimde oluşturulmuş ve sutunlar klasörü içerisinde bulunmaktadır. Bu adım karşılaşılan problemler başlığında
 anlatıldı.

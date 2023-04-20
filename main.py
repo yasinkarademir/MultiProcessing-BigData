@@ -1,5 +1,6 @@
 import os
 import tkinter as tk
+import zipfile
 from tkinter.ttk import Combobox
 from tkinter import *
 from tkinter import ttk
@@ -32,7 +33,7 @@ def benzerlik_tespiti(cumle1, cumle2):
 def senaryo(benzerlik_orani, sutun_adi, baslangic, bitis, thread_no):
     print('başladı')
     start = time.time()
-    veriler = csv.reader(open('sutunlar/' + sutun_adi + '.csv'))
+    veriler = csv.reader(open('columns/' + sutun_adi + '.csv'))
     veriler = list(veriler)[0]
     print(veriler)
     bastirilacak_kayitlar = []
@@ -54,7 +55,7 @@ def senaryo(benzerlik_orani, sutun_adi, baslangic, bitis, thread_no):
     bastirilacak_kayitlar = list(bastirilacak_kayitlar)
     print('sonlandı')
 
-    dosyaya_yaz = open('sutunlar/Bastirilacak_kayitlar.csv', 'a')
+    dosyaya_yaz = open('columns/Bastirilacak_kayitlar.csv', 'a')
 
     yeni_yazici = csv.writer(dosyaya_yaz)
     for t in bastirilacak_kayitlar:
@@ -64,7 +65,7 @@ def senaryo(benzerlik_orani, sutun_adi, baslangic, bitis, thread_no):
 
 
 def senaryo_process(benzerlik_orani, sutun_adi, thread_sayisi, okuyucu):
-    veriler = csv.reader(open('sutunlar/' + sutun_adi + '.csv'))
+    veriler = csv.reader(open('columns/' + sutun_adi + '.csv'))
     veriler = list(veriler)[0]
 
     processes = []
@@ -80,7 +81,7 @@ def senaryo_process(benzerlik_orani, sutun_adi, thread_sayisi, okuyucu):
     for process in processes:
         process.join()
 
-    reader_bastirilacak = csv.reader(open('sutunlar/Bastirilacak_kayitlar.csv', 'r'))
+    reader_bastirilacak = csv.reader(open('columns/Bastirilacak_kayitlar.csv', 'r'))
     reader_bastirilacak = list(reader_bastirilacak)
 
     for i in reader_bastirilacak:
@@ -131,7 +132,7 @@ def kayitlari_getir(benzerlik_orani, sutun_adi, thread_sayisi, okuyucu, thread_s
         thread_sureleri.append(end - start)
 
     print(thread_sureleri)
-    os.remove('sutunlar/Bastirilacak_kayitlar.csv')
+    os.remove('columns/Bastirilacak_kayitlar.csv')
 
 
 def senaryo_1(benzerlik_orani, sutun_adi, thread_sayisi, okuyucu):
@@ -214,11 +215,11 @@ def senaryo_1(benzerlik_orani, sutun_adi, thread_sayisi, okuyucu):
 # **********************************************************************************************************************
 def senaryo_2(ayni_sutun, benzerlik_orani, benzerlik_sutunu, getirilecek_sutun, thread_sayisi, okuyucu,
               thread_sureleri):
-    urunler = csv.reader(open('sutunlar/' + ayni_sutun + '.csv'))
+    urunler = csv.reader(open('columns/' + ayni_sutun + '.csv'))
     urunler = list(urunler)[0]
 
     say = 0
-    dosya_adi = 'sutunlar/' + ayni_sutun + '.csv'
+    dosya_adi = 'columns/' + ayni_sutun + '.csv'
     urunler = csv.reader(open(dosya_adi))
     urunler = list(urunler)[0]
     for i in urunler:
@@ -361,7 +362,7 @@ def senaryo_2_pencere(ayni_sutun, benzerlik_orani, benzerlik_sutunu, getirilecek
 # **********************************************************************************************************************
 def senaryo_3(benzerlik_orani, complaint_id, okuyucu, benzerlik_sutunu):
     start_toplam_sure = time.time()
-    okuyucu_sutunlar_benzerlik = csv.reader(open('sutunlar/' + benzerlik_sutunu + '.csv'))
+    okuyucu_sutunlar_benzerlik = csv.reader(open('columns/' + benzerlik_sutunu + '.csv'))
     okuyucu_sutunlar_benzerlik = list(okuyucu_sutunlar_benzerlik)[0]
 
     konu = ''
@@ -426,7 +427,12 @@ def senaryo_3(benzerlik_orani, complaint_id, okuyucu, benzerlik_sutunu):
     root.mainloop()
 
 
-okuyucu = csv.reader(open('rows2.csv', 'r'))
+zip_path = "rows2.zip"
+csv_file_name = "rows2.csv"
+with zipfile.ZipFile(zip_path, 'r') as zfile:
+    zfile.extractall()
+
+okuyucu = csv.reader(open(csv_file_name, 'r'))
 okuyucu = list(okuyucu)
 
 form = tk.Tk()
